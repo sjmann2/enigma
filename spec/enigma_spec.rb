@@ -21,13 +21,12 @@ describe Enigma do
   end
 
   it "can generate todays date" do
-    allow(@enigma).to receive(:date_generator).and_return(Date.parse("20220805").strftime("%d%m%Y"))
-    expect(@enigma.date_generator).to eq("05082022")
+    allow(@enigma).to receive(:date_generator).and_return(Date.parse("19950804").strftime("%d%m%Y"))
+    expect(@enigma.date_generator).to eq("040895")
   end
 
   it "can generate offsets" do
-    allow(@enigma).to receive(:offset_generator).and_return("1025")
-    expect(@enigma.offset_generator).to eq("1025")
+    expect(@enigma.offset_generator("040895")).to eq("1025")
   end
 
   xit "can encrypt a message" do
