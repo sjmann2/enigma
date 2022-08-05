@@ -9,6 +9,12 @@ describe Enigma do
     expect(@enigma).to be_an(Enigma)
   end
 
+  it "has a character set" do
+    expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
+    expect(@engima.characters).to eq(expected)
+  end
+
   it "can generate random keys" do
     expect(@enigma.key_generator).to eq(02715)
   end
