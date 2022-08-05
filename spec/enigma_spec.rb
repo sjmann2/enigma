@@ -19,6 +19,11 @@ describe Enigma do
     expect(@enigma.key_generator).to eq("02715")
   end
 
+  it "can generate todays date" do
+    allow(@enigma).to receive(:date).and_return(Date.parse("20220805")).strftime("%d%m%Y")
+    expect(@enigma.date).to eq("05082022")
+  end
+  
   it "can generate offsets" do
     expect(@enigma.offset_generator).to eq("1025")
   end
