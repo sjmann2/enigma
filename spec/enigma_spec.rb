@@ -25,7 +25,7 @@ describe Enigma do
     expect(@enigma.key_generator).to eq("02715")
   end
 
-  xit "can generate offsets" do
+  it "can generate offsets" do
     expect(@enigma.offset_generator("040895")).to eq("1025")
   end
 
