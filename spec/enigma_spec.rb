@@ -15,14 +15,14 @@ describe Enigma do
     expect(@enigma.characters).to eq(expected)
   end
 
-  it "can generate random keys" do
-    allow(@enigma).to receive(:key_generator).and_return("02715")
-    expect(@enigma.key_generator).to eq("02715")
-  end
-
   it "can generate todays date" do
     allow(@enigma).to receive(:date_generator).and_return(Date.parse("950804").strftime("%d%m%y"))
     expect(@enigma.date_generator).to eq("040895")
+  end
+
+  it "can generate random keys" do
+    allow(@enigma).to receive(:key_generator).and_return("02715")
+    expect(@enigma.key_generator).to eq("02715")
   end
 
   xit "can generate offsets" do
