@@ -16,11 +16,11 @@ describe Enigma do
   end
 
   it "can generate random keys" do
-    expect(@enigma.key_generator).to eq(02715)
+    expect(@enigma.key_generator).to eq("02715")
   end
 
   it "can generate offsets" do
-    expect(@enigma.offset_generator).to eq(1025)
+    expect(@enigma.offset_generator).to eq("1025")
   end
 
   it "can encrypt a message" do
