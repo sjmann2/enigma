@@ -1,8 +1,14 @@
+require 'date'
+
 class Enigma
   attr_reader :characters
 
   def initialize
     @characters = ("a".."z").to_a << " "
+  end
+
+  def date_generator
+    Date.today.strftime("%d%m%y")
   end
 
   def key_generator
