@@ -58,10 +58,8 @@ class Enigma
         encrypted_index_values << (value + shifts[:d_shift]) % 27
       end
     end
-    encrypted_message = []
-    encrypted_index_values.each do |position|
-      encrypted_message << @characters[position]
-    end
+
+    encrypted_message = encrypted_index_values.map { |position| @characters[position] }
 
     encryption = {
       :encryption => encrypted_message.join,
@@ -95,10 +93,8 @@ class Enigma
         decrypted_index_value << (value - shifts[:d_shift]) % 27
       end
     end
-    decrypted_message = []
-    decrypted_index_value.each do |position|
-      decrypted_message << @characters[position]
-    end
+    decrypted_message = decrypted_index_value.map { |position| @characters[position] }
+   
     decryption = {
       :decryption => decrypted_message.join,
       :key => key,
@@ -106,3 +102,5 @@ class Enigma
     }
   end
 end
+
+#if you rotate the array, the original character index values stay the same
