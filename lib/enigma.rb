@@ -15,46 +15,78 @@ class Enigma
     5.times.map { rand(10) }.join
   end
 
-  def offset_generator(date)
+  def offset_calculator(date)
     squared_date = (date.to_i ** 2).to_s
     squared_date[-4..-1]
   end
 
-  def encrypt(message, key = key_generator, date = date_generator)
-    offset = offset_generator(date)
-    message.downcase!
-  
-    a_shift = (key[0] + key[1]).to_i + offset[0].to_i #3
-    b_shift = (key[1] + key[2]).to_i + offset[1].to_i #27
-    c_shift = (key[2] + key[3]).to_i + offset[2].to_i #73
-    d_shift = (key[3] + key[4]).to_i + offset[3].to_i #20
+  def shift_calculator(key, date)
+    offset = offset_calculator(date)
 
-    character_index_value = []
-    #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+    shifts = {
+      a_shift: (key[0] + key[1]).to_i + offset[0].to_i,
+      b_shift: (key[1] + key[2]).to_i + offset[1].to_i,
+      c_shift: (key[2] + key[3]).to_i + offset[2].to_i,
+      d_shift: (key[3] + key[4]).to_i + offset[3].to_i,
+    }
+  end
+
+  def find_character_index_values(message)
+    character_index_values = []
+
     message.each_char.with_index do |char, index|
-      @characters.map.with_index do |character, index_2|
+      @characters.each_with_index do |character, character_index|
         if character == char
-          character_index_value << index_2
+          character_index_values << character_index
         end
       end
     end
-    encrypted_index_value = []
-    #[10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76]
-    character_index_value.map.with_index do |value, index|
+    character_index_values
+  end
+
+  def find_encrypted_index_values(message, key, date)
+    character_index_values = find_character_index_values(message)
+    shifts = shift_calculator(key, date)
+
+    encrypted_index_values = []
+    character_index_values.each_with_index do |value, index|
       if index % 4 == 0
-        encrypted_index_value << (value + a_shift) % 27
+        encrypted_index_values << (value + shifts[:a_shift]) % 27
       elsif index % 4 == 1
-        encrypted_index_value << (value + b_shift) % 27
+        encrypted_index_values << (value + shifts[:b_shift]) % 27
       elsif index % 4 == 2
-        encrypted_index_value << (value + c_shift) % 27
+        encrypted_index_values << (value + shifts[:c_shift]) % 27
       elsif index % 4 == 3
-        encrypted_index_value << (value + d_shift) % 27
+        encrypted_index_values << (value + shifts[:d_shift]) % 27
       end
     end
-    encrypted_message = []
-    encrypted_index_value.map do |position|
-      encrypted_message << @characters[position]
+    encrypted_index_values
+  end
+
+  def find_decrypted_index_values(message, key, date)
+    character_index_values = find_character_index_values(message)
+    shifts = shift_calculator(key, date)
+
+    decrypted_index_value = []
+    character_index_values.each_with_index do |value, index|
+      if index % 4 == 0
+        decrypted_index_value << (value - shifts[:a_shift]) % 27
+      elsif index % 4 == 1
+        decrypted_index_value << (value - shifts[:b_shift]) % 27
+      elsif index % 4 == 2
+        decrypted_index_value << (value - shifts[:c_shift]) % 27
+      elsif index % 4 == 3
+        decrypted_index_value << (value - shifts[:d_shift]) % 27
+      end
     end
+    decrypted_index_value
+  end
+
+  def encrypt(message, key = key_generator, date = date_generator)
+    message.downcase!
+    shifts = shift_calculator(key, date)
+    encrypted_index_values = find_encrypted_index_values(message, key, date)
+    encrypted_message = encrypted_index_values.map { |position| @characters[position] }
 
     encryption = {
       :encryption => encrypted_message.join,
@@ -63,47 +95,16 @@ class Enigma
     }
   end
 
-  def decrypt(ciphertext, key, date = date_generator)
-    offset = offset_generator(date)
-    #keder ohulw
-    #key =  02, 27, 71, 15
-    #offset = 1, 0, 2, 5
-    #the shifts are the same, but we move left instead of right
-    a_shift = (key[0] + key[1]).to_i + offset[0].to_i
-    b_shift = (key[1] + key[2]).to_i + offset[1].to_i #27
-    c_shift = (key[2] + key[3]).to_i + offset[2].to_i #73
-    d_shift = (key[3] + key[4]).to_i + offset[3].to_i #20
+  def decrypt(message, key, date = date_generator)
+    shifts = shift_calculator(key, date)
+    decrypted_index_values = find_decrypted_index_values(message, key, date)
 
-    character_index_value = []
-    #[10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22]
-    ciphertext.each_char.with_index do |char, index|
-      @characters.map.with_index do |character, index_2|
-        if character == char
-          character_index_value << index_2
-        end
-      end
-    end
-    decrypted_index_value = []
-    #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
-    character_index_value.map.with_index do |value, index|
-      if index % 4 == 0
-        decrypted_index_value << (value - a_shift) % 27
-      elsif index % 4 == 1
-        decrypted_index_value << (value - b_shift) % 27
-      elsif index % 4 == 2
-        decrypted_index_value << (value - c_shift) % 27
-      elsif index % 4 == 3
-        decrypted_index_value << (value - d_shift) % 27
-      end
-    end
-    decrypted_message = []
-    decrypted_index_value.map do |position|
-      decrypted_message << @characters[position]
-    end
+    decrypted_message = decrypted_index_values.map { |position| @characters[position] }
+
     decryption = {
       :decryption => decrypted_message.join,
       :key => key,
-      :date => date
+      :date => date,
     }
   end
 end
