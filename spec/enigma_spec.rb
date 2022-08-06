@@ -38,7 +38,7 @@ describe Enigma do
     expect(@enigma.encrypt("hello world", "02715", "040895")).to eq(expected)
   end
 
-  xit "can decrypt a message" do
+  it "can decrypt a message" do
     expected = {
       decryption: "hello world",
       key: "02715",
