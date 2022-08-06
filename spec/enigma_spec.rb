@@ -40,8 +40,21 @@ describe Enigma do
     allow(@enigma).to receive(:date_generator).and_return(Date.parse("220806").strftime("%d%m%y"))
     expect(@enigma.shift_calculator("84721", "220806")).to eq(expected)
   end
-  
-  it "can encrypt a message" do
+
+  it "can find index values within characters array of a given message" do
+    message = "hello world"
+    expect(@enigma.find_character_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+  end
+
+  it "can find encrypted index values of a given message" do
+    message = "hello world"
+    key = "02715"
+    date = "040895"
+    expect(@enigma.find_character_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.find_encrypted_index_values(message, key, date)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
+  end
+
+  it "can encrypt a message given a key and a date" do
     expected = {
       encryption: "keder ohulw",
       key: "02715",
