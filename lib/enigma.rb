@@ -70,15 +70,7 @@ class Enigma
   end
 
   def decrypt(ciphertext, key, date = date_generator)
-    offset = offset_calculator(date)
-    #keder ohulw
-    #key =  02, 27, 71, 15
-    #offset = 1, 0, 2, 5
-    #the shifts are the same, but we move left instead of right
-    a_shift = (key[0] + key[1]).to_i + offset[0].to_i
-    b_shift = (key[1] + key[2]).to_i + offset[1].to_i #27
-    c_shift = (key[2] + key[3]).to_i + offset[2].to_i #73
-    d_shift = (key[3] + key[4]).to_i + offset[3].to_i #20
+    shifts = shift_calculator(key, date)
 
     character_index_value = []
     #[10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22]
@@ -93,13 +85,13 @@ class Enigma
     #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
     character_index_value.map.with_index do |value, index|
       if index % 4 == 0
-        decrypted_index_value << (value - a_shift) % 27
+        decrypted_index_value << (value - shifts[:a_shift]) % 27
       elsif index % 4 == 1
-        decrypted_index_value << (value - b_shift) % 27
+        decrypted_index_value << (value - shifts[:b_shift]) % 27
       elsif index % 4 == 2
-        decrypted_index_value << (value - c_shift) % 27
+        decrypted_index_value << (value - shifts[:c_shift]) % 27
       elsif index % 4 == 3
-        decrypted_index_value << (value - d_shift) % 27
+        decrypted_index_value << (value - shifts[:d_shift]) % 27
       end
     end
     decrypted_message = []
