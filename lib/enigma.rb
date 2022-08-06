@@ -36,35 +36,27 @@ class Enigma
     c_shift = (key[2] + key[3]).to_i + offset[2].to_i #73
     d_shift = (key[3] + key[4]).to_i + offset[3].to_i #20
 
-    message[0].each_char.with_index do |char, index|
-      #for A: start at 1 and go every 4th
-      #for B: start at 2 and go every 4th
-      #for C: start at 3 and go every 4th
-      #for D: start at 4 and go every 4th
-      a_shift char
-
-      message[0..-1].each_char.with_index do |char, index|
-        if index % 4 == 0
-          puts char
-        end
-      end
-      #start at index 0, iterate through the end, give me the
-      #character at index position that are divisible by 4
-      message[1..-1].each_char.with_index do |char, index|
-        if index % 4 == 0
-          puts char
-        end
-      end
-      message[2..-1].each_char.with_index do |char, index|
-        if index % 4 == 0
-          puts char
-        end
-      end
-      message[3..-1].each_char.with_index do |char, index|
-        if index % 4 == 0
-          puts char
+    character_index_value = []
+    message.each_char.with_index do |char, index|
+      @characters.with_index do |character, index_2|
+        if character == char
+          character_index_value << index_2
         end
       end
     end
+    encrypted_index_value = []
+    character_index_value.with_index do |value, index|
+      if index % 4 == 0
+        encrypted_index_value << value + a_shift
+      elsif index % 4 == 1
+      elsif index % 4 == 2
+      elsif index % 4 == 3
+      end
+    end
+
+    encrypted_message = []
+    encrypted_index_value.map do |position|
+      encrypted_message << @characters[position]
+    end.join(" ")
   end
 end

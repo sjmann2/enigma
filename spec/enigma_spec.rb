@@ -28,7 +28,7 @@ describe Enigma do
   it "can generate offsets" do
     expect(@enigma.offset_generator("040895")).to eq("1025")
   end
-
+ 
   it "can encrypt a message" do
     expected = {
       encryption: "keder ohulw",
