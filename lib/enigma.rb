@@ -35,31 +35,31 @@ class Enigma
     message.downcase!
     shifts = shift_calculator(key, date)
 
-    character_index_value = []
+    character_index_values = []
     #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
     message.each_char.with_index do |char, index|
       @characters.each_with_index do |character, character_index|
         if character == char
-          character_index_value << character_index
+          character_index_values << character_index
         end
       end
     end
 
-    encrypted_index_value = []
+    encrypted_index_values = []
     #[10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76]
-    character_index_value.each_with_index do |value, index|
+    character_index_values.each_with_index do |value, index|
       if index % 4 == 0
-        encrypted_index_value << (value + shifts[:a_shift]) % 27
+        encrypted_index_values << (value + shifts[:a_shift]) % 27
       elsif index % 4 == 1
-        encrypted_index_value << (value + shifts[:b_shift]) % 27
+        encrypted_index_values << (value + shifts[:b_shift]) % 27
       elsif index % 4 == 2
-        encrypted_index_value << (value + shifts[:c_shift]) % 27
+        encrypted_index_values << (value + shifts[:c_shift]) % 27
       elsif index % 4 == 3
-        encrypted_index_value << (value + shifts[:d_shift]) % 27
+        encrypted_index_values << (value + shifts[:d_shift]) % 27
       end
     end
     encrypted_message = []
-    encrypted_index_value.each do |position|
+    encrypted_index_values.each do |position|
       encrypted_message << @characters[position]
     end
 
@@ -73,18 +73,18 @@ class Enigma
   def decrypt(ciphertext, key, date = date_generator)
     shifts = shift_calculator(key, date)
 
-    character_index_value = []
+    character_index_values = []
     #[10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22]
     ciphertext.each_char.with_index do |char, index|
       @characters.each_with_index do |character, character_index|
         if character == char
-          character_index_value << character_index
+          character_index_values << character_index
         end
       end
     end
     decrypted_index_value = []
     #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
-    character_index_value.each_with_index do |value, index|
+    character_index_values.each_with_index do |value, index|
       if index % 4 == 0
         decrypted_index_value << (value - shifts[:a_shift]) % 27
       elsif index % 4 == 1
