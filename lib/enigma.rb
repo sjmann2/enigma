@@ -38,15 +38,16 @@ class Enigma
     character_index_value = []
     #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
     message.each_char.with_index do |char, index|
-      @characters.map.with_index do |character, index_2|
+      @characters.each_with_index do |character, character_index|
         if character == char
-          character_index_value << index_2
+          character_index_value << character_index
         end
       end
     end
+
     encrypted_index_value = []
     #[10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76]
-    character_index_value.map.with_index do |value, index|
+    character_index_value.each_with_index do |value, index|
       if index % 4 == 0
         encrypted_index_value << (value + shifts[:a_shift]) % 27
       elsif index % 4 == 1
@@ -58,7 +59,7 @@ class Enigma
       end
     end
     encrypted_message = []
-    encrypted_index_value.map do |position|
+    encrypted_index_value.each do |position|
       encrypted_message << @characters[position]
     end
 
@@ -75,15 +76,15 @@ class Enigma
     character_index_value = []
     #[10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22]
     ciphertext.each_char.with_index do |char, index|
-      @characters.map.with_index do |character, index_2|
+      @characters.each_with_index do |character, character_index|
         if character == char
-          character_index_value << index_2
+          character_index_value << character_index
         end
       end
     end
     decrypted_index_value = []
     #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
-    character_index_value.map.with_index do |value, index|
+    character_index_value.each_with_index do |value, index|
       if index % 4 == 0
         decrypted_index_value << (value - shifts[:a_shift]) % 27
       elsif index % 4 == 1
@@ -95,7 +96,7 @@ class Enigma
       end
     end
     decrypted_message = []
-    decrypted_index_value.map do |position|
+    decrypted_index_value.each do |position|
       decrypted_message << @characters[position]
     end
     decryption = {
