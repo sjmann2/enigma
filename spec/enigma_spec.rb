@@ -56,7 +56,7 @@ describe Enigma do
     expect(@enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq(expected)
   end
 
-  it "can encrypt a message and ignore a character not in the character set" do
+  xit "can encrypt a message and ignore a character not in the character set" do
     expected = {
       encryption: "keder ohulw!",
       key: "02715",

@@ -23,7 +23,7 @@ class Enigma
   def encrypt(message, key = key_generator, date = date_generator)
     offset = offset_generator(date)
     message.downcase!
-    if message.include?(!@characters)
+  
     a_shift = (key[0] + key[1]).to_i + offset[0].to_i #3
     b_shift = (key[1] + key[2]).to_i + offset[1].to_i #27
     c_shift = (key[2] + key[3]).to_i + offset[2].to_i #73
