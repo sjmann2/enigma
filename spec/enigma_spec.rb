@@ -47,7 +47,7 @@ describe Enigma do
     expect(@enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected)
   end
 
-  xit "can encrypt capital letters to lowercase" do
+  it "can encrypt capital letters to lowercase" do
     expected = {
       encryption: "keder ohulw",
       key: "02715",
@@ -56,7 +56,7 @@ describe Enigma do
     expect(@enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq(expected)
   end
 
-  xit "can encrypt a message and ignore a character not in the character set" do
+  it "can encrypt a message and ignore a character not in the character set" do
     expected = {
       encryption: "keder ohulw!",
       key: "02715",
