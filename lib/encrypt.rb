@@ -2,11 +2,11 @@ require_relative './enigma'
 
 enigma = Enigma.new
 
-handle = File.open(ARGV[0], "r")
+message_file = File.open(ARGV[0], "r")
 
-message = handle.read
+message = message_file.read
 
-handle.close
+message_file.close
 
 encrypted_text_hash = enigma.encrypt(message, key = enigma.key_generator, date = enigma.date_generator)
 
