@@ -26,7 +26,7 @@ describe Enigma do
   end
 
   it "can generate offsets" do
-    expect(@enigma.offset_generator("040895")).to eq("1025")
+    expect(@enigma.offset_calculator("040895")).to eq("1025")
   end
 
   it "can generate shift values" do
@@ -38,7 +38,7 @@ describe Enigma do
     }
     allow(@enigma).to receive(:key_generator).and_return("84721")
     allow(@enigma).to receive(:date_generator).and_return(Date.parse("220806").strftime("%d%m%y"))
-    expect(@enigma.shift_calculator("84721", "220806")).to eq(expected))
+    expect(@enigma.shift_calculator("84721", "220806")).to eq(expected)
   end
 
   it "can encrypt a message" do
