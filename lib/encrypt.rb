@@ -1,4 +1,5 @@
 require_relative './enigma'
+
 enigma = Enigma.new
 
 handle = File.open(ARGV[0], "r")
@@ -12,5 +13,6 @@ encrypted_text = enigma.encrypt(message, key = enigma.key_generator, date = enig
 encrypt = File.open(ARGV[1], "w")
 
 encrypt.write(encrypted_text)
+puts "created 'encrypted.txt' with the key #{key} and date #{date}"
 
 encrypt.close
