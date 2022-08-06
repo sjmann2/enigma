@@ -83,7 +83,15 @@ describe Enigma do
     expect(@enigma.encrypt("hello world")).to eq(expected)
   end
 
-  it "can decrypt a message" do
+  it "can find decrypted index values of a given message" do
+    message = "keder ohulw"
+    key = "02715"
+    date = "040895"
+    expect(@enigma.find_character_index_values(message)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
+    expect(@enigma.find_decrypted_index_values(message, key, date)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+  end
+
+  it "can decrypt a message given a key and a date" do
     expected = {
       decryption: "hello world",
       key: "02715",
