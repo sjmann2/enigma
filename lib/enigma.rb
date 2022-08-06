@@ -21,7 +21,7 @@ class Enigma
   end
 
   def encrypt(message, key = key_generator, date = date_generator)
-    offset = offset_generator(date)
+    
     message.downcase!
   
     a_shift = (key[0] + key[1]).to_i + offset[0].to_i #3
