@@ -21,14 +21,6 @@ class Enigma
   end
 
   def encrypt(message, key = key_generator, date = date_generator)
-    # :encryption => the encrypted String
-    # :key => the key used for encryption as a String
-    # :date => the date used for encryption as a String in the form DDMMYY
-    # encryption = {
-    #   encryption:
-    #   key:
-    #   date:
-    # }
     offset = offset_generator(date)
 
     a_shift = (key[0] + key[1]).to_i + offset[0].to_i #3
@@ -37,26 +29,36 @@ class Enigma
     d_shift = (key[3] + key[4]).to_i + offset[3].to_i #20
 
     character_index_value = []
+    #[7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
     message.each_char.with_index do |char, index|
-      @characters.with_index do |character, index_2|
+      @characters.map.with_index do |character, index_2|
         if character == char
           character_index_value << index_2
         end
       end
     end
     encrypted_index_value = []
-    character_index_value.with_index do |value, index|
+    #[10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76]
+    character_index_value.map.with_index do |value, index|
       if index % 4 == 0
-        encrypted_index_value << value + a_shift
+        encrypted_index_value << (value + a_shift) % 27
       elsif index % 4 == 1
+        encrypted_index_value << (value + b_shift) % 27
       elsif index % 4 == 2
+        encrypted_index_value << (value + c_shift) % 27
       elsif index % 4 == 3
+        encrypted_index_value << (value + d_shift) % 27
       end
     end
-
     encrypted_message = []
     encrypted_index_value.map do |position|
       encrypted_message << @characters[position]
-    end.join(" ")
+    end
+
+    encryption = {
+      :encryption => encrypted_message.join,
+      :key => key,
+      :date => date
+    }
   end
 end
