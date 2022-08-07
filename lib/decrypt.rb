@@ -1,18 +1,27 @@
-require_relative './enigma'
+class Decrypt
+  attr_reader :read_file_path,
+              :write_file_path,
+              :key,
+              :date
 
-enigma = Enigma.new
+  def initialize(read_file_path, write_file_path, key, date)
+    @read_file_path = read_file_path
+    @write_file_path = write_file_path
+    @key = key
+    @date = date
+    @enigma = Enigma.new
+  end
 
-encrypted = File.open(ARGV[0], "r")
-
-message = encrypted.read
-
-encrypted.close
-
-decrypted_text = enigma.decrypt(message, key = (ARGV[2]), date = (ARGV[3]))
-
-decrypt = File.open(ARGV[1], "w")
-
-decrypt.write(decrypted_text)
-puts "created 'decrypted.txt' with the key #{key} and date #{date}"
-
-decrypt.close
+  def run
+    encrypted = File.open(@read_file_path, "r")
+    message = encrypted.read
+    encrypted.close
+    
+    decrypted_text = @enigma.decrypt(message, key = (@key), date = (@date))
+    decrypt = File.open(@write_file_path, "w")
+    decrypt.write(decrypted_text)
+    puts "created 'decrypted.txt' with the key #{key} and date #{date}"
+    
+    decrypt.close
+  end
+end

@@ -1,18 +1,25 @@
-require_relative './enigma'
+class Encrypt
+  attr_reader :read_file_path,
+              :write_file_path
 
-enigma = Enigma.new
+  def initialize(read_file_path, write_file_path)
+    @read_file_path = read_file_path
+    @write_file_path = write_file_path
+    @enigma = Enigma.new
+  end
 
-message_file = File.open(ARGV[0], "r")
+  def run
+    message_file = File.open(read_file_path, "r")
+    message = message_file.read
+    message_file.close
 
-message = message_file.read
+    encrypted_text = @enigma.encrypt(message, key = @enigma.key_generator, date = @enigma.date_generator)
 
-message_file.close
+    encrypt = File.open(write_file_path, "w")
 
-encrypted_text_hash = enigma.encrypt(message, key = enigma.key_generator, date = enigma.date_generator)
+    encrypt.write(encrypted_text[:encryption])
+    puts "created 'encrypted.txt' with the key #{key} and date #{date}"
 
-encrypt = File.open(ARGV[1], "w")
-
-encrypt.write(encrypted_text_hash[:encryption])
-puts "created 'encrypted.txt' with the key #{key} and date #{date}"
-
-encrypt.close
+    encrypt.close
+  end
+end
