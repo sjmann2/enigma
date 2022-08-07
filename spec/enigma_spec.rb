@@ -80,6 +80,7 @@ describe Enigma do
       key: "23124",
     }
     allow(@enigma).to receive(:key_generator).and_return("23124")
+    allow(@enigma).to receive(:date_generator).and_return(Date.parse("220806").strftime("%d%m%y"))
     expect(@enigma.encrypt("hello world")).to eq(expected)
   end
 
