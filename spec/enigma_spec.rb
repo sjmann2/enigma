@@ -1,10 +1,9 @@
 require "./lib/enigma"
+require "./lib/shift_calculator"
 
 describe Enigma do
   before :each do
     @enigma = Enigma.new
-    @enigma.extend(Generatable)
-    @enigma.extend(Calculatable)
   end
 
   it "exists" do
@@ -16,8 +15,6 @@ describe Enigma do
                 "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
     expect(@enigma.characters).to eq(expected)
   end
-
-  
 
   it "can find index values within characters array of a given message" do
     message = "hello world"

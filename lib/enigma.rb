@@ -1,15 +1,11 @@
 require "date"
-require_relative "generatable"
-require_relative "calculatable"
 
 class Enigma
-  include Generatable
-  include Calculatable
-
   attr_reader :characters
 
   def initialize
     @characters = ("a".."z").to_a << " "
+    @shift_calculator = ShiftCalculator.new
   end
 
   def find_character_index_values(message)
@@ -30,7 +26,7 @@ class Enigma
   def find_encrypted_index_values(message, key, date)
     character_index_values = find_character_index_values(message)
 
-    shifts = shift_calculator(key, date)
+    shifts = @shift_calculator.shift_calculator(key, date)
 
     encrypted_index_values = []
 
@@ -52,7 +48,7 @@ class Enigma
 
   def find_decrypted_index_values(message, key, date)
     character_index_values = find_character_index_values(message)
-    shifts = shift_calculator(key, date)
+    shifts = @shift_calculator.shift_calculator(key, date)
 
     decrypted_index_values = []
     character_index_values.each_with_index do |value, index|
@@ -71,7 +67,7 @@ class Enigma
     decrypted_index_values
   end
 
-  def encrypt(message, key = key_generator, date = date_generator)
+  def encrypt(message, key = @shift_calculator.key_generator, date = @shift_calculator.date_generator)
     message.downcase!
     encrypted_index_values = find_encrypted_index_values(message, key, date)
 
@@ -91,7 +87,7 @@ class Enigma
     }
   end
 
-  def decrypt(message, key, date = date_generator)
+  def decrypt(message, key, date = @shift_calculator.date_generator)
     decrypted_index_values = find_decrypted_index_values(message, key, date)
 
     decrypted_message = []
