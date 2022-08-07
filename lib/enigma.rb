@@ -1,7 +1,8 @@
 require "date"
 
 class Enigma
-  attr_reader :characters
+  attr_reader :characters,  
+              :shift_calculator
 
   def initialize
     @characters = ("a".."z").to_a << " "
