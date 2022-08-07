@@ -92,7 +92,7 @@ class Enigma
 
   def encrypt(message, key = key_generator, date = date_generator)
     message.downcase!
-    shifts = shift_calculator(key, date)
+    # shifts = shift_calculator(key, date)
     encrypted_index_values = find_encrypted_index_values(message, key, date)
 
     encrypted_message = []
@@ -113,7 +113,7 @@ class Enigma
   end
 
   def decrypt(message, key, date = date_generator)
-    shifts = shift_calculator(key, date)
+    # shifts = shift_calculator(key, date)
     decrypted_index_values = find_decrypted_index_values(message, key, date)
 
     decrypted_message = []
