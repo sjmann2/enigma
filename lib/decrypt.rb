@@ -1,27 +1,6 @@
-class Decrypt
-  attr_reader :read_file_path,
-              :write_file_path,
-              :key,
-              :date
+require_relative './enigma'
+require_relative './decrypt_runner'
 
-  def initialize(read_file_path, write_file_path, key, date)
-    @read_file_path = read_file_path
-    @write_file_path = write_file_path
-    @key = key
-    @date = date
-    @enigma = Enigma.new
-  end
+runner = DecryptRunner.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3])
 
-  def run
-    encrypted = File.open(@read_file_path, "r")
-    message = encrypted.read
-    encrypted.close
-    
-    decrypted_text = @enigma.decrypt(message, key = (@key), date = (@date))
-    decrypt = File.open(@write_file_path, "w")
-    decrypt.write(decrypted_text)
-    puts "created 'decrypted.txt' with the key #{key} and date #{date}"
-    
-    decrypt.close
-  end
-end
+runner.run
