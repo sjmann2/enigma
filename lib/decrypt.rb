@@ -1,18 +1,6 @@
 require_relative './enigma'
+require_relative './decrypt_runner'
 
-enigma = Enigma.new
+runner = DecryptRunner.new(ARGV[0], ARGV[2], ARGV[3], ARGV[1])
 
-encrypted = File.open(ARGV[0], "r")
-
-message = encrypted.read
-
-encrypted.close
-
-decrypted_text = enigma.decrypt(message, key = (ARGV[2]), date = (ARGV[3]))
-
-decrypt = File.open(ARGV[1], "w")
-
-decrypt.write(decrypted_text)
-puts "created 'decrypted.txt' with the key #{key} and date #{date}"
-
-decrypt.close
+runner.run

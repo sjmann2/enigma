@@ -1,18 +1,24 @@
 require_relative './enigma'
+require_relative './encrypt_runner'
 
-enigma = Enigma.new
+runner = EncryptRunner.new(ARGV[0], ARGV[1])
 
-message_file = File.open(ARGV[0], "r")
+runner.run
 
-message = message_file.read
 
-message_file.close
 
-encrypted_text_hash = enigma.encrypt(message, key = enigma.key_generator, date = enigma.date_generator)
 
-encrypt = File.open(ARGV[1], "w")
 
-encrypt.write(encrypted_text_hash[:encryption])
-puts "created 'encrypted.txt' with the key #{key} and date #{date}"
 
-encrypt.close
+
+
+
+
+
+
+
+
+
+
+
+
