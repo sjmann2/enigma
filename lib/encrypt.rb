@@ -1,7 +1,7 @@
 require_relative './enigma'
-require_relative './encrypt'
+require_relative './encrypt_runner'
 
-runner = Encrypt.new(ARGV[0], ARGV[1])
+runner = EncryptRunner.new(ARGV[0], ARGV[1])
 
 runner.run
 
