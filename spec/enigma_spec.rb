@@ -3,6 +3,7 @@ require "./lib/enigma"
 describe Enigma do
   before :each do
     @enigma = Enigma.new
+    @enigma.extend(Generatable)
   end
 
   it "exists" do

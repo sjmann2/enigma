@@ -1,18 +1,12 @@
 require "date"
+require_relative "generatable"
 
 class Enigma
+  include Generatable
   attr_reader :characters
 
   def initialize
     @characters = ("a".."z").to_a << " "
-  end
-
-  def date_generator
-    Date.today.strftime("%d%m%y")
-  end
-
-  def key_generator
-    5.times.map { rand(10) }.join
   end
 
   def offset_calculator(date)
