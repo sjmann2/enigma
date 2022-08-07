@@ -73,11 +73,9 @@ class Enigma
 
   def encrypt(message, key = key_generator, date = date_generator)
     message.downcase!
-    # shifts = shift_calculator(key, date)
     encrypted_index_values = find_encrypted_index_values(message, key, date)
 
     encrypted_message = []
-    #encrypted_index_values = [10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22, ["!"]]
       encrypted_index_values.each do |position|
         if position.class == Array
           encrypted_message << position
@@ -94,7 +92,6 @@ class Enigma
   end
 
   def decrypt(message, key, date = date_generator)
-    # shifts = shift_calculator(key, date)
     decrypted_index_values = find_decrypted_index_values(message, key, date)
 
     decrypted_message = []
