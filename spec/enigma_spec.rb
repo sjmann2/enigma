@@ -4,6 +4,7 @@ describe Enigma do
   before :each do
     @enigma = Enigma.new
     @enigma.extend(Generatable)
+    @enigma.extend(Calculatable)
   end
 
   it "exists" do
