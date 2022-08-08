@@ -19,16 +19,12 @@ describe Enigma do
   end
 
   it "can find index values within the characters array of a given message" do
-    message = "hello world"
-    expect(@enigma.convert_to_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.convert_to_index_values("hello world")).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
   end
 
   it "can take the index values of the character array and convert them to an encrypted message" do
-    message = "hello world"
-    key = "02715"
-    date = "040895"
-    expect(@enigma.convert_to_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
-    expect(@enigma.convert_to_encrypted_message(message, key, date)).to eq("keder ohulw")
+    expect(@enigma.convert_to_index_values("hello world")).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.convert_to_encrypted_message("hello world", "02715", "040895")).to eq("keder ohulw")
   end
 
   it "can encrypt a message given a key and a date" do
