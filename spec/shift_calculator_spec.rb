@@ -5,7 +5,7 @@ describe ShiftCalculator do
     @shift_calculator = ShiftCalculator.new
   end
 
-  it 'exists' do
+  it "exists" do
     expect(@shift_calculator).to be_a(ShiftCalculator)
   end
 
@@ -25,11 +25,9 @@ describe ShiftCalculator do
 
   it "can calculate shift values" do
     expected = { a_shift: 93,
-      b_shift: 53,
-      c_shift: 75,
-      d_shift: 27
-
-    }
+                b_shift: 53,
+                c_shift: 75,
+                d_shift: 27 }
     allow(@shift_calculator).to receive(:key_generator).and_return("84721")
     allow(@shift_calculator).to receive(:date_generator).and_return(Date.parse("220806").strftime("%d%m%y"))
     expect(@shift_calculator.shift_calculator("84721", "220806")).to eq(expected)

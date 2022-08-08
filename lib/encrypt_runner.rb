@@ -15,7 +15,7 @@ class EncryptRunner
     message_file.close
 
     encrypted_text =
-     @enigma.encrypt(message, key = @enigma.shift_calculator.key_generator, date = @enigma.shift_calculator.date_generator)
+      @enigma.encrypt(message, key = @enigma.shift_calculator.key_generator, date = @enigma.shift_calculator.date_generator)
 
     encrypt = File.open(write_file_path, "w")
 
