@@ -89,7 +89,7 @@ describe Enigma do
     expect(@enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected)
   end
 
-  it "can decrypt a message given only a cipher a key" do
+  it "can decrypt a message given only a message and a key" do
     encrypted = {
       encryption: "keder ohulw",
       key: "02715",
