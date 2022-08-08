@@ -16,12 +16,12 @@ class DecryptRunner
     encrypted = File.open(@read_file_path, "r")
     message = encrypted.read
     encrypted.close
-    
+
     decrypted_text = @enigma.decrypt(message, key = (@key), date = (@date))
     decrypt = File.open(@write_file_path, "w")
     decrypt.write(decrypted_text[:decryption])
     puts "created 'decrypted.txt' with the key #{key} and date #{date}"
-    
+
     decrypt.close
   end
 end
