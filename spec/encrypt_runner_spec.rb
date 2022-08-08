@@ -1,6 +1,5 @@
 require "./lib/encrypt_runner"
 require "./lib/enigma"
-require "./lib/shift_calculator"
 
 describe EncryptRunner do
   before :each do
