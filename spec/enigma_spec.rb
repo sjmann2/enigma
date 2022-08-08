@@ -1,11 +1,11 @@
 require "./lib/enigma"
 require "./lib/shift_calculator"
-require "./lib/indexable"
+require "./lib/convertable"
 
 describe Enigma do
   before :each do
     @enigma = Enigma.new
-    @enigma.extend(Indexable)
+    @enigma.extend(Convertable)
   end
 
   it "exists" do

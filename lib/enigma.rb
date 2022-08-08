@@ -1,9 +1,9 @@
 require "date"
 require_relative "./shift_calculator"
-require_relative "./indexable"
+require_relative "./convertable"
 
 class Enigma
-  include Indexable
+  include Convertable
   attr_reader :characters,
               :shift_calculator
 
