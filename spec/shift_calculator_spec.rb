@@ -15,9 +15,10 @@ describe ShiftCalculator do
   end
 
   it "can generate random keys" do
+    expect(@shift_calculator.key_generator.length).to eq(5)
+    expect(@shift_calculator.key_generator).to be_a(String)
     allow(@shift_calculator).to receive(:key_generator).and_return("02715")
     expect(@shift_calculator.key_generator).to eq("02715")
-    expect(@shift_calculator.key_generator.length).to eq(5)
   end
 
   it "can calculate offsets" do
@@ -26,9 +27,9 @@ describe ShiftCalculator do
 
   it "can calculate shift values" do
     expected = { a_shift: 93,
-                b_shift: 53,
-                c_shift: 75,
-                d_shift: 27 }
+                 b_shift: 53,
+                 c_shift: 75,
+                 d_shift: 27 }
     allow(@shift_calculator).to receive(:key_generator).and_return("84721")
     allow(@shift_calculator).to receive(:date_generator).and_return(Date.parse("220806").strftime("%d%m%y"))
     expect(@shift_calculator.shift_calculator("84721", "220806")).to eq(expected)
