@@ -17,8 +17,6 @@ describe EncryptRunner do
   end
 
   it "has a run method" do
-    encrypt_runner = double("files")
-    
-    allow(encrypt_runner).to receive(:run).and_return("created 'encrypted.txt' with the key 02715 and date 040895")
+    allow(@encrypt_runner).to receive(:run).and_return("created 'encrypted.txt' with the key 02715 and date 040895")
   end
 end
