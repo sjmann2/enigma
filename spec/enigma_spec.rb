@@ -20,15 +20,15 @@ describe Enigma do
 
   it "can find index values within characters array of a given message" do
     message = "hello world"
-    expect(@enigma.find_character_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.convert_to_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
   end
 
   it "can find encrypted message" do
     message = "hello world"
     key = "02715"
     date = "040895"
-    expect(@enigma.find_character_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
-    expect(@enigma.encrypted_message(message, key, date)).to eq("keder ohulw")
+    expect(@enigma.convert_to_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.convert_to_encrypted_message(message, key, date)).to eq("keder ohulw")
   end
 
   it "can encrypt a message given a key and a date" do
@@ -40,8 +40,8 @@ describe Enigma do
       key: "02715",
       date: "040895",
     }
-    expect(@enigma.find_character_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
-    expect(@enigma.encrypted_message(message, key, date)).to eq("keder ohulw")
+    expect(@enigma.convert_to_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.convert_to_encrypted_message(message, key, date)).to eq("keder ohulw")
     expect(@enigma.encrypt("hello world", "02715", "040895")).to eq(expected)
   end
 
@@ -70,8 +70,8 @@ describe Enigma do
     message = "keder ohulw"
     key = "02715"
     date = "040895"
-    expect(@enigma.find_character_index_values(message)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
-    expect(@enigma.decrypted_message(message, key, date)).to eq("hello world")
+    expect(@enigma.convert_to_index_values(message)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
+    expect(@enigma.convert_to_decrypted_message(message, key, date)).to eq("hello world")
   end
 
   it "can decrypt a message given a key and a date" do
@@ -84,8 +84,8 @@ describe Enigma do
       key: "02715",
       date: "040895",
     }
-    expect(@enigma.find_character_index_values(message)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
-    expect(@enigma.decrypted_message(message, key, date)).to eq("hello world")
+    expect(@enigma.convert_to_index_values(message)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
+    expect(@enigma.convert_to_decrypted_message(message, key, date)).to eq("hello world")
     expect(@enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected)
   end
 
