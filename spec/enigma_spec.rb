@@ -109,19 +109,19 @@ describe Enigma do
 
   it "can encrypt a message and leave a character not included in the character set" do
     expected = {
-      encryption: "keder ohulw!",
+      encryption: "ke&eoosprrdx!",
       key: "02715",
       date: "040895",
     }
-    expect(@enigma.encrypt("hello world!", "02715", "040895")).to eq(expected)
+    expect(@enigma.encrypt("he&llo world!", "02715", "040895")).to eq(expected)
   end
 
   it "can decrypt a message and leave a character not included in the character set" do
     expected = {
-      decryption: "hello world!",
+      decryption: "he&llo world!",
       key: "02715",
       date: "040895",
     }
-    expect(@enigma.decrypt("keder ohulw!", "02715", "040895")).to eq(expected)
+    expect(@enigma.decrypt("ke&eoosprrdx!", "02715", "040895")).to eq(expected)
   end
 end

@@ -16,4 +16,8 @@ describe DecryptRunner do
     expect(@decrypt_runner.key).to eq(82648)
     expect(@decrypt_runner.date).to eq(240818)
   end
+
+  it "has a run method" do
+    allow(@decrypt_runner).to receive(:run).and_return("created 'decrypted.txt' with the key 02715 and date 040895")
+  end
 end
