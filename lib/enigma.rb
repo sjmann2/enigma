@@ -13,7 +13,7 @@ class Enigma
   end
 
   def encrypt(message, key = @shift_calculator.key_generator, date = @shift_calculator.date_generator)
-    encrypted_message = encrypted_message(message, key, date)
+    encrypted_message = convert_to_encrypted_message(message, key, date)
     encryption = {
       :encryption => encrypted_message,
       :key => key,
@@ -22,7 +22,7 @@ class Enigma
   end
 
   def decrypt(message, key, date = @shift_calculator.date_generator)
-    decrypted_message = decrypted_message(message, key, date)
+    decrypted_message = convert_to_decrypted_message(message, key, date)
     decryption = {
       :decryption => decrypted_message,
       :key => key,

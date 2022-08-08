@@ -1,5 +1,5 @@
 module Indexable
-  def find_character_index_values(message)
+  def convert_to_index_values(message)
     message.downcase!
     character_index_values = []
     message.each_char.with_index do |char, index|
@@ -15,8 +15,8 @@ module Indexable
     character_index_values
   end
 
-  def encrypted_message(message, key, date)
-    character_index_values = find_character_index_values(message)
+  def convert_to_encrypted_message(message, key, date)
+    character_index_values = convert_to_index_values(message)
 
     shifts = @shift_calculator.shift_calculator(key, date)
 
@@ -38,8 +38,8 @@ module Indexable
     encrypted_message.join
   end
 
-  def decrypted_message(message, key, date)
-    character_index_values = find_character_index_values(message)
+  def convert_to_decrypted_message(message, key, date)
+    character_index_values = convert_to_index_values(message)
     shifts = @shift_calculator.shift_calculator(key, date)
 
     decrypted_message = []
