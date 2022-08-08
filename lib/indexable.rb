@@ -1,5 +1,6 @@
 module Indexable
   def find_character_index_values(message)
+    message.downcase!
     character_index_values = []
     message.each_char.with_index do |char, index|
       if !@characters.include?(char)
@@ -37,6 +38,21 @@ module Indexable
     encrypted_index_values
   end
 
+
+  def encrypted_index_to_letters(message, key, date)
+    encrypted_index_values = find_encrypted_index_values(message, key, date)
+
+    encrypted_message = []
+    encrypted_index_values.each do |position|
+      if position.class == Array
+        encrypted_message << position
+      else
+        encrypted_message << @characters[position]
+      end
+    end
+    encrypted_message
+  end
+
   def find_decrypted_index_values(message, key, date)
     character_index_values = find_character_index_values(message)
     shifts = @shift_calculator.shift_calculator(key, date)
@@ -56,5 +72,19 @@ module Indexable
       end
     end
     decrypted_index_values
+  end
+
+  def decrypted_index_to_letters(message, key, date)
+    decrypted_index_values = find_decrypted_index_values(message, key, date)
+
+    decrypted_message = []
+    decrypted_index_values.each do |position|
+      if position.class == Array
+        decrypted_message << position
+      else
+        decrypted_message << @characters[position]
+      end
+    end
+    decrypted_message
   end
 end
