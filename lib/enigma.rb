@@ -1,9 +1,9 @@
 require "date"
 require_relative "./shift_calculator"
-require_relative "./indexable"
+require_relative "./convertable"
 
 class Enigma
-  include Indexable
+  include Convertable
   attr_reader :characters,
               :shift_calculator
 
@@ -13,39 +13,18 @@ class Enigma
   end
 
   def encrypt(message, key = @shift_calculator.key_generator, date = @shift_calculator.date_generator)
-    message.downcase!
-    encrypted_index_values = find_encrypted_index_values(message, key, date)
-
-    encrypted_message = []
-    encrypted_index_values.each do |position|
-      if position.class == Array
-        encrypted_message << position
-      else
-        encrypted_message << @characters[position]
-      end
-    end
-
+    encrypted_message = convert_to_encrypted_message(message, key, date)
     encryption = {
-      :encryption => encrypted_message.join,
+      :encryption => encrypted_message,
       :key => key,
       :date => date,
     }
   end
 
   def decrypt(message, key, date = @shift_calculator.date_generator)
-    decrypted_index_values = find_decrypted_index_values(message, key, date)
-
-    decrypted_message = []
-    decrypted_index_values.each do |position|
-      if position.class == Array
-        decrypted_message << position
-      else
-        decrypted_message << @characters[position]
-      end
-    end
-
+    decrypted_message = convert_to_decrypted_message(message, key, date)
     decryption = {
-      :decryption => decrypted_message.join,
+      :decryption => decrypted_message,
       :key => key,
       :date => date,
     }

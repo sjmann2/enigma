@@ -1,4 +1,4 @@
-module Indexable
+module Convertable
   def convert_to_index_values(message)
     message.downcase!
     character_index_values = []
