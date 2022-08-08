@@ -17,6 +17,7 @@ describe ShiftCalculator do
   it "can generate random keys" do
     allow(@shift_calculator).to receive(:key_generator).and_return("02715")
     expect(@shift_calculator.key_generator).to eq("02715")
+    expect(@shift_calculator.key_generator.length).to eq(5)
   end
 
   it "can calculate offsets" do
