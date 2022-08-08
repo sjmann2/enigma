@@ -15,7 +15,7 @@ module Indexable
     character_index_values
   end
 
-  def find_encrypted_index_values(message, key, date)
+  def encrypted_message(message, key, date)
     character_index_values = find_character_index_values(message)
 
     shifts = @shift_calculator.shift_calculator(key, date)
@@ -23,10 +23,9 @@ module Indexable
     encrypted_message = []
 
     character_index_values.each_with_index do |value, index|
-      if value.class != Integer
+      if value.class == Array
         encrypted_message << value
-      end
-      if index % 4 == 0
+      elsif index % 4 == 0
         encrypted_message << @characters[(value + shifts[:a_shift]) % 27]
       elsif index % 4 == 1
         encrypted_message << @characters[(value + shifts[:b_shift]) % 27]
@@ -39,54 +38,24 @@ module Indexable
     encrypted_message.join
   end
 
-  # def encrypted_index_to_letters(message, key, date)
-  #   encrypted_index_values = find_encrypted_index_values(message, key, date)
-
-  #   encrypted_message = []
-  #   encrypted_index_values.each do |position|
-  #     if position.class == Array
-  #       encrypted_message << position
-  #     else
-  #       encrypted_message << @characters[position]
-  #     end
-  #   end
-  #   encrypted_message
-  # end
-
-  def find_decrypted_index_values(message, key, date)
+  def decrypted_message(message, key, date)
     character_index_values = find_character_index_values(message)
     shifts = @shift_calculator.shift_calculator(key, date)
 
-    decypted_message = []
+    decrypted_message = []
     character_index_values.each_with_index do |value, index|
-      if value.class != Integer
-        decypted_message << value
-      end
-      if index % 4 == 0
-        decypted_message << @characters[(value - shifts[:a_shift]) % 27]
+      if value.class == Array
+        decrypted_message << value
+      elsif index % 4 == 0
+        decrypted_message << @characters[(value - shifts[:a_shift]) % 27]
       elsif index % 4 == 1
-        decypted_message << @characters[(value - shifts[:b_shift]) % 27]
+        decrypted_message << @characters[(value - shifts[:b_shift]) % 27]
       elsif index % 4 == 2
-        decypted_message << @characters[(value - shifts[:c_shift]) % 27]
+        decrypted_message << @characters[(value - shifts[:c_shift]) % 27]
       elsif index % 4 == 3
-        decypted_message << @characters[(value - shifts[:d_shift]) % 27]
+        decrypted_message << @characters[(value - shifts[:d_shift]) % 27]
       end
     end
-    decypted_message.join
+    decrypted_message.join
   end
 end
-
-#   def decrypted_index_to_letters(message, key, date)
-#     decrypted_index_values = find_decrypted_index_values(message, key, date)
-
-#     decrypted_message = []
-#     decrypted_index_values.each do |position|
-#       if position.class == Array
-#         decrypted_message << position
-#       else
-#         decrypted_message << @characters[position]
-#       end
-#     end
-#     decrypted_message
-#   end
-# end

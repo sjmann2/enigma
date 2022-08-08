@@ -13,18 +13,18 @@ class Enigma
   end
 
   def encrypt(message, key = @shift_calculator.key_generator, date = @shift_calculator.date_generator)
-    encrypted_message = encrypted_index_to_letters(message, key, date)
+    encrypted_message = encrypted_message(message, key, date)
     encryption = {
-      :encryption => encrypted_message.join,
+      :encryption => encrypted_message,
       :key => key,
       :date => date,
     }
   end
 
   def decrypt(message, key, date = @shift_calculator.date_generator)
-    decrypted_message = decrypted_index_to_letters(message, key, date)
+    decrypted_message = decrypted_message(message, key, date)
     decryption = {
-      :decryption => decrypted_message.join,
+      :decryption => decrypted_message,
       :key => key,
       :date => date,
     }
