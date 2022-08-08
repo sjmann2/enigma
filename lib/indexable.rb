@@ -3,13 +3,9 @@ module Indexable
     message.downcase!
     character_index_values = []
     message.each_char.with_index do |char, index|
-      if !@characters.include?(char)
-        character_index_values << [char]
-      end
+      character_index_values << [char] if !@characters.include?(char)
       @characters.each_with_index do |character, character_index|
-        if character == char
-          character_index_values << character_index
-        end
+        character_index_values << character_index if character == char
       end
     end
     character_index_values
@@ -17,11 +13,9 @@ module Indexable
 
   def convert_to_encrypted_message(message, key, date)
     character_index_values = convert_to_index_values(message)
-
     shifts = @shift_calculator.shift_calculator(key, date)
 
     encrypted_message = []
-
     character_index_values.each_with_index do |value, index|
       if value.class == Array
         encrypted_message << value
