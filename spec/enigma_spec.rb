@@ -32,11 +32,16 @@ describe Enigma do
   end
 
   it "can encrypt a message given a key and a date" do
+    message = "hello world"
+    key = "02715"
+    date = "04895"
     expected = {
       encryption: "keder ohulw",
       key: "02715",
       date: "040895",
     }
+    expect(@enigma.find_character_index_values(message)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
+    expect(@enigma.find_encrypted_index_values(message, key, date)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
     expect(@enigma.encrypt("hello world", "02715", "040895")).to eq(expected)
   end
 
@@ -70,11 +75,17 @@ describe Enigma do
   end
 
   it "can decrypt a message given a key and a date" do
+    message = "keder ohulw"
+    key = "02715"
+    date = "040895"
+
     expected = {
       decryption: "hello world",
       key: "02715",
       date: "040895",
     }
+    expect(@enigma.find_character_index_values(message)).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
+    expect(@enigma.find_decrypted_index_values(message, key, date)).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
     expect(@enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected)
   end
 
