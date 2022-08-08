@@ -1,4 +1,5 @@
 require "date"
+require_relative "./shift_calculator"
 
 class Enigma
   attr_reader :characters,  

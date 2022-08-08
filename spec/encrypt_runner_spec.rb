@@ -1,5 +1,6 @@
 require './lib/encrypt_runner'
 require './lib/enigma'
+require './lib/shift_calculator'
 
 describe EncryptRunner do
   before :each do
@@ -7,7 +8,7 @@ describe EncryptRunner do
   end
 
   it 'exists' do
-    expect(@encrypt_runner).to be_a(EncryptRunner)
+    expect(@encrypt_runner).to be_an(EncryptRunner)
   end
 
   it 'has a read file path and a write file path' do
