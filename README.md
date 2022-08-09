@@ -12,7 +12,7 @@
 
 **Test Driven Development**
 >-3.5/4: *Mocks and/or stubs are used appropriately to ensure two or more of the following: testing is more robust (i.e., testing methods that might not otherwise be tested due to factors like randomness or user input), testing is more efficient, or that classes can be tested without relying on functionality from other classes. Students are able to speak as to how mocks and/or stubs are fulfilling the above conditions. Test coverage metrics show 100% coverage.*
-**Mocks are used to test methods that are random and methods that call today's date. Test coverage not including the CLI is at 100%.**
+**Stubs are used to test methods that are random and methods that call today's date. Mocks and stubs are implemented to test the run method in encrypt and decrypt runner. Test coverage not including the CLI is at 100%.**
 
 **Version Control**
 >-4/4: *Minimum 40 commits and 4 pull requests. All pull requests include related and logical chunks of functionality, and are named and documented to clearly communicate the purpose of the pull request. No commits include multiple pieces of functionality.*
