@@ -18,6 +18,20 @@ describe DecryptRunner do
   end
 
   it "has a run method" do
-    allow(@decrypt_runner).to receive(:run).and_return("created 'decrypted.txt' with the key 02715 and date 040895")
+    allow_any_instance_of(DecryptRunner).to receive(:run).and_return("created 'decrypted.txt' with the key 02715 and date 040895")
+  end
+
+  it "can read a file" do
+    message_file = double(File, read: "stubbed read")
+    allow_any_instance_of(File).to receive(:open).and_return("stubbed read")
+  end
+
+  it "can decrypt a message" do
+    message = "hello world"
+    key = double("key")
+    enigma = double("enigma")
+    date = double("date")
+    allow(enigma).to receive(:decrypt).and_return("hello world")
+    expect(enigma.decrypt(message, key, date)).to eq("hello world")
   end
 end
